@@ -1,0 +1,33 @@
+version: '3'
+services:
+  influxdb:
+    restart: unless-stopped
+    image: quay.io/influxdb/influxdb:2.0.0-beta
+    volumes:
+      - influxdb:/root/.influxdbv2
+    ports:
+      - 9999:9999
+
+  grafana:
+    restart: unless-stopped
+    image: grafana/grafana
+    volumes:
+      - grafana:/var/lib/grafana
+      - ${PWD}/grafana-plugins:/var/lib/grafana/plugins
+    ports:
+      - 3000:3000
+
+  udp-client:
+    build:
+      context: ./udp-client
+      dockerfile: Dockerfile
+    image: node-weatherflow-udp-client:latest
+    ports:
+      - 50222:50222/udp
+    depends_on:
+      - influxdb
+      - grafana
+
+volumes:
+  influxdb:
+  grafana:

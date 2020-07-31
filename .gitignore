@@ -1,0 +1,4 @@
+.env
+grafana-plugins/**/*
+!grafana-plugins/.gitignore
+udp-client/node_modules
