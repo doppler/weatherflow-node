@@ -1,27 +1,27 @@
 {
-  "name": "weatherflow-udp-to-rethinkdb",
+  "name": "weatherflow-udp-to-influxdb",
   "version": "0.0.1",
-  "description": "Stores data from Weatherflow hub UDP broadcast in RethinkDB",
+  "description": "Stores data from Weatherflow hub UDP broadcast in InfluxDB",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/index.js",
-    "tsc": "tsc",
-    "prestart": "tsc"
+    "start": "node build/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "watch": "nodemon"
   },
   "author": "David Rose",
   "repository": {
-    "url": "https://github.com/doppler/weatherflow-udp-to-rethinkdb"
+    "url": "https://github.com/doppler/weatherflow-udp-to-influxdb"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^14.0.27",
     "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.0",
-    "rethinkdb": "^2.4.2"
+    "node-fetch": "^2.6.0"
   }
 }
