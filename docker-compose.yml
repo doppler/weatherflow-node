@@ -28,6 +28,17 @@ services:
       - influxdb
       - grafana
 
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - influxdb
+      - grafana
+      - udp-client
+
 volumes:
   influxdb:
   grafana:

@@ -1,0 +1,97 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golden Proportion Layout</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="app">
+        <div id="left">
+          <div id="left-top">
+            <div id="clock"></div>
+            <div id="left-top-right">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div id="left-bottom">
+            <iframe
+              id="anemometer"
+              src="http://localhost:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8"
+              frameborder="0"
+              width="100%"
+              height="100%"
+            ></iframe>
+          </div>
+        </div>
+        <div id="right">
+          <div>
+            <iframe
+              src="http://localhost:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10"
+              width="100%"
+              height="100%"
+              frameborder="0"
+            ></iframe>
+          </div>
+          <div style="grid-column-start: 2; grid-column-end: 4;">
+            <iframe
+              src="http://localhost:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=12"
+              width="100%"
+              height="100%"
+              frameborder="0"
+            ></iframe>
+          </div>
+          <div>
+            <iframe
+              src="http://localhost:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=14"
+              width="100%"
+              height="100%"
+              frameborder="0"
+            ></iframe>
+          </div>
+
+          <div class="winds-aloft" id="alt-12000">
+            <span id="header" class="text">12,000 Feet MSL</span>
+            <span class="arrow"></span>
+            <span id="footer" class="text"></span>
+          </div>
+          <div class="winds-aloft" id="alt-9000">
+            <span id="header" class="text">9,000 Feet MSL</span>
+            <span class="arrow"></span>
+            <span id="footer" class="text"></span>
+          </div>
+          <div class="winds-aloft" id="alt-6000">
+            <span id="header" class="text">6,000 Feet MSL</span>
+            <span class="arrow"></span>
+            <span id="footer" class="text"></span>
+          </div>
+          <div class="winds-aloft" id="alt-3000">
+            <span id="header" class="text">3,000 Feet MSL</span>
+            <span class="arrow"></span>
+            <span id="footer" class="text"></span>
+          </div>
+
+          <div
+            style="
+              grid-column-start: 1;
+              grid-column-end: 5;
+              grid-row-start: 3;
+              grid-row-end: 5;
+            "
+          >
+            <iframe
+              id="windgraph"
+              src="http://localhost:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4"
+              frameborder="0"
+              width="100%"
+              height="100%"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
