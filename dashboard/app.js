@@ -1,5 +1,41 @@
 let r = 0;
 
+const hostname = window.location.hostname;
+
+const widgets = [
+  {
+    domId: "left-bottom",
+    url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8`
+  },
+  {
+    domId: "temperature",
+    url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10`
+  },
+  {
+    domId: "temperature-and-humidity",
+    url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=12`
+  },
+  {
+    domId: "humidity",
+    url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=14`
+  },
+  {
+    domId: "wind-graph",
+    url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`
+  }
+]
+
+const populateWidgets = () => {
+  widgets.forEach(widget => {
+    const el = document.getElementById(widget.domId);
+    const iframe = document.createElement('iframe')
+    iframe.src = widget.url;
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.frameBorder = '0';
+    el?.appendChild(iframe)
+  })
+}
 const fetchWindsAloft = async () => {
   const response = await fetch('https://winds-aloft-json.herokuapp.com/forecast/mia/ATL.json');
   const json = await response.json()
@@ -69,8 +105,9 @@ document.onreadystatechange = async () => {
       digital.innerHTML = `${hh}:${mm}:${ss}`
     }
 
+    populateWidgets();
     fetchWindsAloft();
-    fetchCheckWxSunriseSunset();
+    // fetchCheckWxSunriseSunset();
 
     const w = setInterval(fetchWindsAloft, 1000 * 60 * 10);
     const i = setInterval(updateClock, 1000)
