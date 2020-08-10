@@ -16,9 +16,7 @@
       };
 
       const handleVisibilityChange = () => {
-        console.log('visibilitychange');
         if (document.visibilityState === 'visible') {
-          console.log('visible');
           initializeSecondhandRotation();
         }
       };
@@ -37,7 +35,6 @@
         const d = new Date();
         const [s, m, h] = [d.getSeconds(), d.getMinutes(), d.getHours()];
         if (!secondHandRotation) initializeSecondhandRotation(s);
-        console.log({ secondHandRotation });
         secondHand.style.transform = `rotate(${secondHandRotation}deg)`;
         minuteHand.style.transform = `rotate(${6 * m + 0.1 * s}deg)`;
         hourHand.style.transform = `rotate(${30 * (h % 12) + 0.5 * m}deg)`;
