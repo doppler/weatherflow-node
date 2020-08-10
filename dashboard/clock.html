@@ -4,7 +4,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
     <script type="module">
-      import { updateClock } from './clock.js';
+      // import { updateClock } from './clock.js';
+      let secondHandRotation = 6 * new Date().getSeconds(); // 360 / 60 sec = 6 deg
+
+      const minuteHand = document.getElementById('minute-hand');
+      const secondHand = document.getElementById('second-hand');
+      const digital = document.getElementById('digital');
+      const hourHand = document.getElementById('hour-hand');
+
+      const zeroPad = (n) => {
+        return n.toString().length === 1 ? `0${n}` : n;
+      };
+
+      export const updateClock = () => {
+        secondHandRotation += 6;
+        const d = new Date();
+        const [s, m, h] = [d.getSeconds(), d.getMinutes(), d.getHours()];
+        secondHand.style.transform = `rotate(${secondHandRotation}deg)`;
+        minuteHand.style.transform = `rotate(${6 * m + 0.1 * s}deg)`;
+        hourHand.style.transform = `rotate(${30 * (h % 12) + 0.5 * m}deg)`;
+        digital.innerHTML = `${zeroPad(h)}:${zeroPad(m)}:${zeroPad(s)}`;
+      };
       document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
           console.log('complete');
@@ -15,6 +35,14 @@
     <style>
       body {
         background-color: #141619;
+        overflow: hidden;
+      }
+      div#clock {
+        text-align: center;
+      }
+      svg {
+        max-width: 95vw;
+        height: 100vh;
       }
       .clock-hand {
         transform-origin: center;
@@ -25,99 +53,105 @@
     </style>
   </head>
   <body>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <defs>
-        <style>
-          .tick {
-            fill: hsl(240, 100%, 90%);
-          }
+    <div id="clock">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <defs>
+          <style>
+            .tick {
+              fill: hsl(240, 100%, 90%);
+            }
 
-          .clock-hand {
-            fill: hsl(240, 10%, 50%);
-            stroke: white;
-          }
+            .clock-hand {
+              fill: hsl(240, 10%, 50%);
+              stroke: white;
+            }
 
-          #digital {
-            fill: hsl(120, 50%, 50%);
-            stroke: black;
-            font-size: 5em;
-            font-family: monospace;
-            font-weight: bold;
-          }
-        </style>
-        <path class="tick" id="15m-tick" d="M 248.6 0 L 263.4 0 L 256 23 Z" />
-        <path
-          class="tick"
-          id="5m-tick"
-          d="M 251.675 0 L 260.325 0 L 256 14 Z"
-        />
-        <path
-          class="tick"
-          id="1m-tick"
-          d="M 253.285 0 L 258.715 0 L 256 8.8 Z"
-        />
-        <g id="1m-tick-quadrant">
-          <use href="#1m-tick" transform="rotate(6, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(12, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(18, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(24, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(36, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(42, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(48, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(54, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(66, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(72, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(78, 256, 256)" />
-          <use href="#1m-tick" transform="rotate(84, 256, 256)" />
+            #digital {
+              fill: hsl(120, 50%, 50%);
+              stroke: black;
+              font-size: 5em;
+              font-family: monospace;
+              font-weight: bold;
+            }
+          </style>
+          <path class="tick" id="15m-tick" d="M 248.6 0 L 263.4 0 L 256 23 Z" />
+          <path
+            class="tick"
+            id="5m-tick"
+            d="M 251.675 0 L 260.325 0 L 256 14 Z"
+          />
+          <path
+            class="tick"
+            id="1m-tick"
+            d="M 253.285 0 L 258.715 0 L 256 8.8 Z"
+          />
+          <g id="1m-tick-quadrant">
+            <use href="#1m-tick" transform="rotate(6, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(12, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(18, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(24, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(36, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(42, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(48, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(54, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(66, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(72, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(78, 256, 256)" />
+            <use href="#1m-tick" transform="rotate(84, 256, 256)" />
+          </g>
+        </defs>
+
+        <use href="#15m-tick" />
+        <use href="#5m-tick" transform="rotate(30, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(60, 256, 256)" />
+        <use href="#1m-tick-quadrant" />
+
+        <use href="#15m-tick" transform="rotate(90, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(120, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(150, 256, 256)" />
+        <use href="#1m-tick-quadrant" transform="rotate(90, 256, 256)" />
+
+        <use href="#15m-tick" transform="rotate(180, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(210, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(240, 256, 256)" />
+        <use href="#1m-tick-quadrant" transform="rotate(180, 256, 256)" />
+
+        <use href="#15m-tick" transform="rotate(270, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(300, 256, 256)" />
+        <use href="#5m-tick" transform="rotate(330, 256, 256)" />
+        <use href="#1m-tick-quadrant" transform="rotate(270, 256, 256)" />
+
+        <text
+          id="digital"
+          x="256"
+          y="384"
+          dominant-baseline="middle"
+          text-anchor="middle"
+        >
+          00:00:00
+        </text>
+
+        <g class="clock-hand" id="hour-hand" transform="rotate(120, 256, 256)">
+          <circle cx="256" cy="256" r="11.5" />
+          <path d="M 244.5 256 L 256 97.8 L 267.5 256 Z" />
         </g>
-      </defs>
 
-      <use href="#15m-tick" />
-      <use href="#5m-tick" transform="rotate(30, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(60, 256, 256)" />
-      <use href="#1m-tick-quadrant" />
+        <g
+          class="clock-hand"
+          id="minute-hand"
+          transform="rotate(220, 256, 256)"
+        >
+          <circle cx="256" cy="256" r="7.13" />
+          <path d="M 248.87 256 L 256 0 L 263.13 256 Z" />
+        </g>
 
-      <use href="#15m-tick" transform="rotate(90, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(120, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(150, 256, 256)" />
-      <use href="#1m-tick-quadrant" transform="rotate(90, 256, 256)" />
+        <g class="clock-hand" id="second-hand">
+          <circle cx="256" cy="256" r="4.4" />
+          <path d="M 251.6 256 L 256 0 L 260.4 256 Z" />
+        </g>
 
-      <use href="#15m-tick" transform="rotate(180, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(210, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(240, 256, 256)" />
-      <use href="#1m-tick-quadrant" transform="rotate(180, 256, 256)" />
-
-      <use href="#15m-tick" transform="rotate(270, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(300, 256, 256)" />
-      <use href="#5m-tick" transform="rotate(330, 256, 256)" />
-      <use href="#1m-tick-quadrant" transform="rotate(270, 256, 256)" />
-
-      <text
-        id="digital"
-        x="256"
-        y="384"
-        dominant-baseline="middle"
-        text-anchor="middle"
-      >
-        00:00:00
-      </text>
-
-      <g class="clock-hand" id="hour-hand" transform="rotate(120, 256, 256)">
-        <circle cx="256" cy="256" r="11.5" />
-        <path d="M 244.5 256 L 256 97.8 L 267.5 256 Z" />
-      </g>
-
-      <g class="clock-hand" id="minute-hand" transform="rotate(220, 256, 256)">
-        <circle cx="256" cy="256" r="7.13" />
-        <path d="M 248.87 256 L 256 0 L 263.13 256 Z" />
-      </g>
-
-      <g class="clock-hand" id="second-hand">
-        <circle cx="256" cy="256" r="4.4" />
-        <path d="M 251.6 256 L 256 0 L 260.4 256 Z" />
-      </g>
-
-      <circle class="clock-hand" cx="256" cy="256" r="11.5" />
-    </svg>
+        <circle class="clock-hand" cx="256" cy="256" r="11.5" />
+      </svg>
+    </div>
   </body>
 </html>
