@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
     <script type="module">
-      let secondHandRotation;
+      let secondHandRotation, clockInterval;
 
       const minuteHand = document.getElementById('minute-hand');
       const secondHand = document.getElementById('second-hand');
@@ -13,12 +13,6 @@
 
       const initializeSecondhandRotation = (s) => {
         secondHandRotation = 6 * s;
-      };
-
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === 'visible') {
-          initializeSecondhandRotation();
-        }
       };
 
       const zeroPad = (n) => {
@@ -36,9 +30,23 @@
         secondHandRotation += 6;
       };
 
-      document.addEventListener('visibilitychange', handleVisibilityChange);
+      clockInterval = setInterval(updateClock, 1000);
 
-      const clockInterval = setInterval(updateClock, 1000);
+      const handleVisibilityChange = () => {
+        switch (document.visibilityState) {
+          case 'visible':
+            secondHandRotation = 0;
+            clockInterval = setInterval(updateClock, 1000);
+            break;
+          case 'hidden':
+            clearInterval(clockInterval);
+            break;
+          default:
+            break;
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
     </script>
     <style>
       body {
