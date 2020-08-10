@@ -21,17 +21,11 @@
         }
       };
 
-      document.addEventListener(
-        'visibilitychange',
-        handleVisibilityChange,
-        false
-      );
-
       const zeroPad = (n) => {
         return n.toString().length === 1 ? `0${n}` : n;
       };
 
-      export const updateClock = () => {
+      const updateClock = () => {
         const d = new Date();
         const [s, m, h] = [d.getSeconds(), d.getMinutes(), d.getHours()];
         if (!secondHandRotation) initializeSecondhandRotation(s);
@@ -42,11 +36,9 @@
         secondHandRotation += 6;
       };
 
-      document.onreadystatechange = () => {
-        if (document.readyState === 'complete') {
-          const clockInterval = setInterval(updateClock, 1000);
-        }
-      };
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      const clockInterval = setInterval(updateClock, 1000);
     </script>
     <style>
       body {
