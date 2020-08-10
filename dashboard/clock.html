@@ -4,8 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
     <script type="module">
-      // import { updateClock } from './clock.js';
-      let secondHandRotation = 6 * new Date().getSeconds(); // 360 / 60 sec = 6 deg
+      let secondHandRotation;
+
+      const initializeSecondhandRotation = () =>
+        (secondHandRotation = 6 * new Date().getSeconds());
+
+      const handleVisibilityChange = () => {
+        if (document.visible) {
+          initializeSecondhandRotation();
+        }
+      };
+
+      document.addEventListener(
+        'visibilitychange',
+        handleVisibilityChange,
+        false
+      );
 
       const minuteHand = document.getElementById('minute-hand');
       const secondHand = document.getElementById('second-hand');
@@ -25,9 +39,10 @@
         hourHand.style.transform = `rotate(${30 * (h % 12) + 0.5 * m}deg)`;
         digital.innerHTML = `${zeroPad(h)}:${zeroPad(m)}:${zeroPad(s)}`;
       };
+
       document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
-          console.log('complete');
+          initializeSecondhandRotation();
           const clockInterval = setInterval(updateClock, 1000);
         }
       };
