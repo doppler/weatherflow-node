@@ -447,7 +447,7 @@
       ],
       "spaceLength": 10,
       "stack": false,
-      "steppedLine": false,
+      "steppedLine": true,
       "targets": [
         {
           "groupBy": [
@@ -629,5 +629,5 @@
   "timezone": "",
   "title": "Wind and Temperature",
   "uid": "LIc6Z0VMz",
-  "version": 2
+  "version": 3
 }
