@@ -1,0 +1,136 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dash Test</title>
+    <link rel="stylesheet" href="dash.css" />
+    <script>
+      const hostname = window.location.hostname;
+
+      const widgets = [
+        {
+          domId: 'clock',
+          url: 'clock.html',
+        },
+        {
+          domId: 'suntimes',
+          url: 'sun.html',
+        },
+        {
+          domId: 'anemometer',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8`,
+        },
+        {
+          domId: 'temperature',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10`,
+        },
+        {
+          domId: 'temperaturegraph',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=16`,
+        },
+        {
+          domId: 'solar',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=20`,
+        },
+        {
+          domId: 'solargraph',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=18`,
+        },
+        {
+          domId: 'windgraph',
+          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`,
+        },
+      ];
+
+      const populateWidgets = () => {
+        widgets.forEach((widget) => {
+          const el = document.getElementById(widget.domId);
+          const iframe = document.createElement('iframe');
+          iframe.src = widget.url;
+          iframe.width = '100%';
+          iframe.height = '100%';
+          iframe.frameBorder = '0';
+          el.firstChild.replaceWith(iframe);
+        });
+      };
+
+      const fetchWindsAloft = async () => {
+        const response = await fetch(
+          'https://winds-aloft-json.herokuapp.com/forecast/mia/ATL.json'
+        );
+        const json = await response.json();
+
+        json.dataRows[0].forecast.forEach((forecast) => {
+          const arrow = new Image();
+          arrow.src = 'arrow.svg';
+          arrow.style.transform = `rotate(${forecast.direction}deg)`;
+
+          const windsAloftDiv = document.querySelector(
+            `#winds-${forecast.altitude}`
+          );
+
+          const arrowDiv = windsAloftDiv?.querySelector('.arrow');
+
+          const footerDiv = windsAloftDiv?.querySelector('.footer');
+          let text = '';
+
+          if (forecast.direction !== 'L/V') {
+            if (arrowDiv?.firstChild) {
+              arrowDiv.removeChild(arrowDiv.firstChild);
+            }
+            arrowDiv.appendChild(arrow);
+            text += `${forecast.direction}° @ ${forecast.speed.mph} mph`;
+          } else {
+            text += 'Light & Variable';
+          }
+          if (forecast.temperature) {
+            text += `<br/>${forecast.temperature.farenheit} °F`;
+          }
+          footerDiv.innerHTML = text;
+        });
+      };
+
+      document.onreadystatechange = async () => {
+        if (document.readyState === 'complete') {
+          populateWidgets();
+          fetchWindsAloft();
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="dashboard">
+        <div id="clock">Clock</div>
+        <div id="suntimes">Sun</div>
+        <div id="temperature">Temperature</div>
+        <div id="temperaturegraph">Temperature Graph</div>
+        <div id="solar">Solar Radiation</div>
+        <div id="solargraph">Solar Radiation Graph</div>
+        <div id="extra">Extra</div>
+        <div id="anemometer">Anemometer</div>
+        <div id="windgraph">Wind Graph</div>
+        <div id="winds-12000" class="winds-aloft">
+          <div class="header">12,000 ft</div>
+          <div class="arrow"></div>
+          <div class="footer"></div>
+        </div>
+        <div id="winds-9000" class="winds-aloft">
+          <div class="header">9,000 ft</div>
+          <div class="arrow"></div>
+          <div class="footer"></div>
+        </div>
+        <div id="winds-6000" class="winds-aloft">
+          <div class="header">6,000 ft</div>
+          <div class="arrow"></div>
+          <div class="footer"></div>
+        </div>
+        <div id="winds-3000" class="winds-aloft">
+          <div class="header">3,000 ft</div>
+          <div class="arrow"></div>
+          <div class="footer"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,8 +3,8 @@ services:
   influxdb:
     restart: unless-stopped
     # for raspberry pi 64 bit
-    image: dopplertx/influxdb-2.0-arm64
-    # image: quay.io/influxdb/influxdb:2.0.0-beta
+    # image: dopplertx/influxdb-2.0-arm64
+    image: quay.io/influxdb/influxdb:2.0.0-beta
     volumes:
       - influxdb:/root/.influxdbv2
     ports:

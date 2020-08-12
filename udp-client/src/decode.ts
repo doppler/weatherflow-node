@@ -3,6 +3,11 @@ exports.decodeRapidWind = (ob: number[]): DecodedRapidWind => {
   return [time, { mps, dir }];
 };
 
+exports.decodeEvtStrike = (evt: number[]): DecodeEvtStrike => {
+  const [time, distance, energy] = evt;
+  return [time, { distance, energy }];
+};
+
 exports.decodeObsSt = (obs: any) => {
   let [
     time,
@@ -56,7 +61,15 @@ type DecodedRapidWind = [
   {
     mps: number;
     dir: number;
-  }
+  },
+];
+
+type DecodeEvtStrike = [
+  number,
+  {
+    distance: number;
+    energy: number;
+  },
 ];
 
 type DecodedObsSt = [
@@ -79,5 +92,5 @@ type DecodedObsSt = [
     lightningStrikeCount: number;
     battery: number;
     reportInterval: number;
-  }
+  },
 ];
