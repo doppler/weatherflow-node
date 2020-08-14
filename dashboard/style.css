@@ -1,73 +1,101 @@
 :root {
-  --app-height: 100vh;
-  --app-width: calc(var(--app-height) * 1.618);
+  --ratio: calc(1900 / 1080);
+  --dash-height: calc(99vh);
 }
-html,
 body {
   margin: 0;
-  background-color: black;
-  color: white;
-  height: 100vh;
+  background-color: hsl(240, 50%, 5%);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 #container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  height: 100vh;
 }
-#app {
-  width: var(--app-width);
-  height: var(--app-height);
+#dashboard {
+  margin: 0.5vh;
+  color: hsl(240, 100%, 95%);
   display: grid;
-  grid-template-columns: 0.618fr 1fr;
-}
-#app div {
-  border: 1px solid hsl(240, 10%, 25%);
-  background-color: #141619;
-}
-#left {
-  display: grid;
-  grid-template-rows: 0.618fr 1fr;
-}
-#left-top {
-  display: grid;
-  grid-template-columns: 1fr 0.618fr;
-}
-#left-top-right {
-  display: grid;
-  grid-template-rows: 1fr 0.618fr;
-}
-#right {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px 10px;
+  height: var(--dash-height);
+  width: calc(var(--dash-height) * var(--ratio));
+  grid-template-columns:
+    calc(var(--dash-height) / 4)
+    1fr
+    calc((var(--dash-height) / 4) * 3)
+    calc(var(--dash-height) / 4);
   grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'clock       suntimes         anemometer windsAloft12k'
+    'temperature temperaturegraph anemometer windsAloft9k'
+    'solar       solargraph       anemometer windsAloft6k'
+    'extra       extra2           windgraph  windsAloft3k';
 }
 
+#dashboard div {
+  background-color: hsl(240, 100%, 10%);
+  border: 1px solid hsl(240, 50%, 30%);
+  box-shadow: 0px 0px 5px hsl(240, 50%, 50%);
+}
 .winds-aloft {
+  position: relative;
   display: flex;
   flex-direction: column;
+}
+#dashboard .winds-aloft div {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  border: none;
+  box-shadow: none;
+}
+.winds-aloft div.arrow {
+  flex-grow: 1;
+  display: flex;
   align-items: center;
 }
-
-.winds-aloft span {
-  display: block;
-  text-align: center;
+.winds-aloft div.arrow > img {
+  width: calc(100vh / 8);
+  height: calc(100vh / 8);
 }
-.winds-aloft .text {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 1.5em;
+#winds-12000 {
+  grid-area: windsAloft12k;
 }
-.winds-aloft > #header {
-  border-bottom: 1px solid hsl(240, 10%, 25%);
-  width: 100%;
+#winds-9000 {
+  grid-area: windsAloft9k;
 }
-.winds-aloft > .arrow {
-  width: 61.8%;
-  height: 61.8%;
+#winds-6000 {
+  grid-area: windsAloft6k;
 }
-.clock-hand {
-  transform-origin: center;
+#winds-3000 {
+  grid-area: windsAloft3k;
 }
-#second-hand {
-  transition: 0.2s ease-in;
+#anemometer {
+  grid-area: anemometer;
+}
+#windgraph {
+  grid-area: windgraph;
+}
+#clock {
+  grid-area: clock;
+}
+#suntimes {
+  grid-area: suntimes;
+}
+#temperature {
+  grid-area: temperature;
+}
+#temperaturegraph {
+  grid-area: temperaturegraph;
+}
+#solar {
+  grid-area: solar;
+}
+#solargraph {
+  grid-area: solargraph;
+}
+#extra {
+  grid-area: extra;
+  grid-column-end: 3;
 }

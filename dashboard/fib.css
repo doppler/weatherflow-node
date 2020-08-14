@@ -1,0 +1,73 @@
+:root {
+  --app-height: 100vh;
+  --app-width: calc(var(--app-height) * 1.618);
+}
+html,
+body {
+  margin: 0;
+  background-color: black;
+  color: white;
+  height: 100vh;
+}
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#app {
+  width: var(--app-width);
+  height: var(--app-height);
+  display: grid;
+  grid-template-columns: 0.618fr 1fr;
+}
+#app div {
+  border: 1px solid hsl(240, 10%, 25%);
+  background-color: #141619;
+}
+#left {
+  display: grid;
+  grid-template-rows: 0.618fr 1fr;
+}
+#left-top {
+  display: grid;
+  grid-template-columns: 1fr 0.618fr;
+}
+#left-top-right {
+  display: grid;
+  grid-template-rows: 1fr 0.618fr;
+}
+#right {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.winds-aloft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.winds-aloft span {
+  display: block;
+  text-align: center;
+}
+.winds-aloft .text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+.winds-aloft > #header {
+  border-bottom: 1px solid hsl(240, 10%, 25%);
+  width: 100%;
+}
+.winds-aloft > .arrow {
+  width: 61.8%;
+  height: 61.8%;
+}
+.clock-hand {
+  transform-origin: center;
+}
+#second-hand {
+  transition: 0.2s ease-in;
+}

@@ -11,6 +11,8 @@ services:
       - 9999:9999
 
   grafana:
+    depends_on:
+      - influxdb
     restart: unless-stopped
     image: grafana/grafana
     volumes:
