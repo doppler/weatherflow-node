@@ -1,11 +1,18 @@
 @import 'vars.css';
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/roboto-v20-latin-500.woff2');
+}
 body {
   margin: 0;
   background-color: var(--widget-background-color);
   color: var(--color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Helvetica, sans-serif;
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.5;
 }
 
