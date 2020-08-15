@@ -17,8 +17,8 @@ services:
     image: grafana/grafana
     volumes:
       - grafana:/var/lib/grafana
-      - ${PWD}/grafana-plugins:/var/lib/grafana/plugins
-      - ${PWD}/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana-plugins:/var/lib/grafana/plugins
+      - ./grafana.ini:/etc/grafana/grafana.ini
     ports:
       - 3000:3000
 
