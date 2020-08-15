@@ -94,6 +94,10 @@
         if (document.readyState === 'complete') {
           populateWidgets();
           fetchWindsAloft();
+          const fetchWindsAloftInterval = setInterval(
+            fetchWindsAloft,
+            1000 * 60 * 10 // every 10 minutes
+          );
         }
       };
     </script>
