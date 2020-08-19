@@ -7,46 +7,23 @@
     <script>
       const hostname = window.location.hostname;
 
-      const widgets = [
-        {
-          domId: 'clock',
-          url: 'clock.html',
-        },
-        {
-          domId: 'suntimes',
-          url: 'sun.html',
-        },
-        {
-          domId: 'anemometer',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8`,
-        },
-        {
-          domId: 'temperature',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10`,
-        },
-        {
-          domId: 'temperaturegraph',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=16`,
-        },
-        {
-          domId: 'solar',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=20`,
-        },
-        {
-          domId: 'solargraph',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=18`,
-        },
-        {
-          domId: 'windgraph',
-          url: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`,
-        },
-      ];
+      const widgets = {
+        clock: 'clock.html',
+        suntimes: 'sun.html',
+        anemometer: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8`,
+        temperature: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10`,
+        temperaturegraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=16`,
+        solar: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=20`,
+        solargraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=18`,
+        windgraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`,
+      };
 
       const populateWidgets = () => {
-        widgets.forEach((widget) => {
-          const el = document.getElementById(widget.domId);
+        Object.entries(widgets).forEach((element) => {
+          const [domId, url] = element;
+          const el = document.getElementById(domId);
           const iframe = document.createElement('iframe');
-          iframe.src = widget.url;
+          iframe.src = url;
           iframe.width = '100%';
           iframe.height = '100%';
           iframe.frameBorder = '0';
@@ -55,16 +32,13 @@
       };
 
       const fetchWindsAloft = async () => {
+        let arrow;
         const response = await fetch(
           'https://winds-aloft-json.herokuapp.com/forecast/mia/ATL.json'
         );
         const json = await response.json();
 
         json.dataRows[0].forecast.forEach((forecast) => {
-          const arrow = new Image();
-          arrow.src = 'arrow.svg';
-          arrow.style.transform = `rotate(${forecast.direction}deg)`;
-
           const windsAloftDiv = document.querySelector(
             `#winds-${forecast.altitude}`
           );
@@ -74,10 +48,13 @@
           const footerDiv = windsAloftDiv?.querySelector('.footer');
           let text = '';
 
+          if (arrowDiv?.firstChild) {
+            arrowDiv.removeChild(arrowDiv.firstChild);
+          }
           if (forecast.direction !== 'L/V') {
-            if (arrowDiv?.firstChild) {
-              arrowDiv.removeChild(arrowDiv.firstChild);
-            }
+            arrow = new Image();
+            arrow.src = 'arrow.svg';
+            arrow.style.transform = `rotate(${forecast.direction}deg)`;
             arrowDiv.appendChild(arrow);
             text += `${forecast.direction}° @ ${forecast.speed.mph} mph`;
           } else {
