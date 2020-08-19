@@ -30,6 +30,11 @@
         secondHandRotation += 6;
       };
 
+      // hack to reset clock secondhand after laggy opening
+      setTimeout(() => {
+        secondHandRotation = null;
+      }, 1000 * 30);
+
       document.addEventListener('readystatechange', () => {
         if (document.readyState === 'complete') {
           clockInterval = setInterval(updateClock, 1000);
