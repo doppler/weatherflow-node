@@ -30,7 +30,11 @@
         secondHandRotation += 6;
       };
 
-      clockInterval = setInterval(updateClock, 1000);
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'complete') {
+          clockInterval = setInterval(updateClock, 1000);
+        }
+      });
 
       const handleVisibilityChange = () => {
         switch (document.visibilityState) {
