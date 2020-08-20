@@ -57,15 +57,12 @@
           const footerDiv = windsAloftDiv?.querySelector('.footer');
           let text = '';
 
-          if (arrowDiv?.firstChild) {
-            arrowDiv.removeChild(arrowDiv.firstChild);
+          let svg = arrowDiv.getElementsByTagName('svg')[0];
+          if (svg) {
+            arrowDiv.removeChild(svg);
           }
           if (forecast.direction !== 'L/V') {
-            // arrow = new Image();
-            // arrow.src = 'arrow.svg';
             arrow = svgTemplate.content.cloneNode(true);
-            console.log(arrow);
-            // arrow.style.transform = `rotate(${forecast.direction}deg)`;
             arrow.getElementById(
               'arrow'
             ).style.transform = `rotate(${forecast.direction}deg)`;
