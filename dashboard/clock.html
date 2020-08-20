@@ -4,16 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
     <script type="module">
-      let secondHandRotation, clockInterval;
-
       const minuteHand = document.getElementById('minute-hand');
       const secondHand = document.getElementById('second-hand');
       const digital = document.getElementById('digital');
       const hourHand = document.getElementById('hour-hand');
-
-      const initializeSecondhandRotation = (s) => {
-        secondHandRotation = 6 * s;
-      };
 
       const zeroPad = (n) => {
         return n.toString().length === 1 ? `0${n}` : n;
@@ -22,41 +16,20 @@
       const updateClock = () => {
         const d = new Date();
         const [s, m, h] = [d.getSeconds(), d.getMinutes(), d.getHours()];
-        if (!secondHandRotation) initializeSecondhandRotation(s);
-        secondHand.style.transform = `rotate(${secondHandRotation}deg)`;
+        secondHand.style.transform = `rotate(${6 * s}deg)`;
         minuteHand.style.transform = `rotate(${6 * m + 0.1 * s}deg)`;
         hourHand.style.transform = `rotate(${30 * (h % 12) + 0.5 * m}deg)`;
         digital.innerHTML = `${zeroPad(h)}:${zeroPad(m)}:${zeroPad(s)}`;
-        secondHandRotation += 6;
       };
-
-      const requestInterval = (fn, delay) => {
-        let start = new Date().getTime();
-        const handle = {};
-        function loop() {
-          let current = new Date().getTime(),
-            delta = current - start;
-
-          if (delta >= delay) {
-            fn.call();
-            start = new Date().getTime();
-          }
-          handle.value = requestAnimationFrame(loop);
-        }
-        handle.value = requestAnimationFrame(loop);
-        return handle;
-      };
-      clockInterval = requestInterval(updateClock, 1000);
+      let clockInterval = setInterval(updateClock, 1000);
 
       const handleVisibilityChange = () => {
         switch (document.visibilityState) {
           case 'visible':
-            secondHandRotation = 0;
-            clockInterval = requestInterval(updateClock, 1000);
+            clockInterval = setInterval(updateClock, 1000);
             break;
           case 'hidden':
-            // clearInterval(clockInterval);
-            cancelAnimationFrame(clockInterval.value);
+            clearInterval(clockInterval);
             break;
           default:
             break;
@@ -81,7 +54,7 @@
         transform-origin: center;
       }
       #second-hand {
-        transition: 0.2s linear;
+        /* transition: 0.2s linear; */
       }
     </style>
   </head>
