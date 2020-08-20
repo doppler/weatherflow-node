@@ -30,31 +30,38 @@
         secondHandRotation += 6;
       };
 
-      // hack to reset clock secondhand after laggy opening
-      setTimeout(() => {
-        secondHandRotation = null;
-      }, 1000 * 30);
+      const requestInterval = (fn, delay) => {
+        let start = new Date().getTime();
+        const handle = {};
+        function loop() {
+          let current = new Date().getTime(),
+            delta = current - start;
 
-      document.addEventListener('readystatechange', () => {
-        if (document.readyState === 'complete') {
-          clockInterval = setInterval(updateClock, 1000);
+          if (delta >= delay) {
+            fn.call();
+            start = new Date().getTime();
+          }
+          handle.value = requestAnimationFrame(loop);
         }
-      });
+        handle.value = requestAnimationFrame(loop);
+        return handle;
+      };
+      clockInterval = requestInterval(updateClock, 1000);
 
       const handleVisibilityChange = () => {
         switch (document.visibilityState) {
           case 'visible':
             secondHandRotation = 0;
-            clockInterval = setInterval(updateClock, 1000);
+            clockInterval = requestInterval(updateClock, 1000);
             break;
           case 'hidden':
-            clearInterval(clockInterval);
+            // clearInterval(clockInterval);
+            cancelAnimationFrame(clockInterval.value);
             break;
           default:
             break;
         }
       };
-
       document.addEventListener('visibilitychange', handleVisibilityChange);
     </script>
     <style>
@@ -74,7 +81,7 @@
         transform-origin: center;
       }
       #second-hand {
-        transition: 0.2s ease-in;
+        transition: 0.2s linear;
       }
     </style>
   </head>

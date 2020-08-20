@@ -8,14 +8,14 @@
       const hostname = window.location.hostname;
 
       const widgets = {
-        clock: 'clock.html',
-        suntimes: 'sun.html',
         anemometer: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=8`,
         temperature: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=10`,
         temperaturegraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=16`,
         solar: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=20`,
         solargraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=18`,
         windgraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`,
+        suntimes: 'sun.html',
+        clock: 'clock.html',
       };
 
       const populateWidgets = () => {
