@@ -153,7 +153,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"weatherflow\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"obs_st\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> map(fn: (r) => ({ r with _value: ( r._value * 9.0 / 5.0) + 32.0 }))",
+          "query": "from(bucket: \"weatherflow\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"obs_st\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> map(fn: (r) => ({ r with _value: ( r._value * 9.0 / 5.0) + 32.0 }))\n  |> last()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -822,7 +822,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"weatherflow\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"obs_st\")\n  |> filter(fn: (r) => r[\"_field\"] == \"solarRadiation\")\n  |> map(fn: (r) => ({ _time: r._time, _field: \"Solar Radiation\", _value: r._value}))",
+          "query": "from(bucket: \"weatherflow\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"obs_st\")\n  |> filter(fn: (r) => r[\"_field\"] == \"solarRadiation\")\n  |> map(fn: (r) => ({ _time: r._time, _field: \"Solar Radiation\", _value: r._value}))\n  |> last()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -980,10 +980,10 @@
     "to": "now"
   },
   "timepicker": {
-    "refresh_intervals": ["10s", "1m"]
+    "refresh_intervals": ["5s", "10s", "1m"]
   },
   "timezone": "",
   "title": "Wind and Temperature",
   "uid": "LIc6Z0VMz",
-  "version": 8
+  "version": 18
 }
