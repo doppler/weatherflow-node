@@ -91,15 +91,18 @@
             id="1m-tick"
             d="M 253.285 0 L 258.715 0 L 256 8.8 Z"
           />
-          <g id="1m-tick-quadrant">
+          <g id="tick-quadrant">
+            <use href="#15m-tick" />
             <use href="#1m-tick" transform="rotate(6, 256, 256)" />
             <use href="#1m-tick" transform="rotate(12, 256, 256)" />
             <use href="#1m-tick" transform="rotate(18, 256, 256)" />
             <use href="#1m-tick" transform="rotate(24, 256, 256)" />
+            <use href="#5m-tick" transform="rotate(30, 256, 256)" />
             <use href="#1m-tick" transform="rotate(36, 256, 256)" />
             <use href="#1m-tick" transform="rotate(42, 256, 256)" />
             <use href="#1m-tick" transform="rotate(48, 256, 256)" />
             <use href="#1m-tick" transform="rotate(54, 256, 256)" />
+            <use href="#5m-tick" transform="rotate(60, 256, 256)" />
             <use href="#1m-tick" transform="rotate(66, 256, 256)" />
             <use href="#1m-tick" transform="rotate(72, 256, 256)" />
             <use href="#1m-tick" transform="rotate(78, 256, 256)" />
@@ -107,25 +110,10 @@
           </g>
         </defs>
 
-        <use href="#15m-tick" />
-        <use href="#5m-tick" transform="rotate(30, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(60, 256, 256)" />
-        <use href="#1m-tick-quadrant" />
-
-        <use href="#15m-tick" transform="rotate(90, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(120, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(150, 256, 256)" />
-        <use href="#1m-tick-quadrant" transform="rotate(90, 256, 256)" />
-
-        <use href="#15m-tick" transform="rotate(180, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(210, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(240, 256, 256)" />
-        <use href="#1m-tick-quadrant" transform="rotate(180, 256, 256)" />
-
-        <use href="#15m-tick" transform="rotate(270, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(300, 256, 256)" />
-        <use href="#5m-tick" transform="rotate(330, 256, 256)" />
-        <use href="#1m-tick-quadrant" transform="rotate(270, 256, 256)" />
+        <use href="#tick-quadrant" />
+        <use href="#tick-quadrant" transform="rotate(90, 256, 256)" />
+        <use href="#tick-quadrant" transform="rotate(180, 256, 256)" />
+        <use href="#tick-quadrant" transform="rotate(270, 256, 256)" />
 
         <text
           id="digital"
