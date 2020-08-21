@@ -1,7 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <script>
     // <![CDATA[
-    window.addEventListener('DOMContentLoaded',()=>{const d=document,mh=d.getElementById('m'),sh=d.getElementById('s'),dh=d.getElementById('d'),hh=d.getElementById('h'),z=(n)=>{return n.toString().length===1?`0${n}`:n;},updateClock=()=>{const d=new Date(),[s,m,h]=[d.getSeconds(),d.getMinutes(),d.getHours()];sh.style.transform=`rotate(${6*s}deg)`;mh.style.transform=`rotate(${6*m+0.1*s}deg)`;hh.style.transform=`rotate(${30*(h%12)+0.5*m}deg)`;dh.innerHTML=`${z(h)}:${z(m)}:${z(s)}`;},handleVisibilityChange=()=>{switch(d.visibilityState){case 'visible':i=setInterval(updateClock,1000);break;case 'hidden':clearInterval(i);break;default:break;}};let i=setInterval(updateClock,1000);d.addEventListener('visibilitychange',handleVisibilityChange);});// ]]>
+    window.addEventListener('DOMContentLoaded', () => {
+      const d = document, 
+      mh = d.getElementById('m'), 
+      sh = d.getElementById('s'), 
+      dh = d.getElementById('d'), 
+      hh = d.getElementById('h'), 
+      z = (n) => { 
+        return n.toString().length === 1 ? `0${n}` : n; 
+      }, 
+      updateClock = () => { 
+        const d = new Date(), 
+        [ms, s, m, h] = [d.getMilliseconds(), d.getSeconds(), d.getMinutes(), d.getHours()]; 
+        sh.style.transform = `rotate(${6 * s + .006 * ms}deg)`; 
+        mh.style.transform = `rotate(${6 * m + 0.1 * s}deg)`; 
+        hh.style.transform = `rotate(${30 * (h % 12) + 0.5 * m}deg)`; 
+        dh.innerHTML = `${z(h)}:${z(m)}:${z(s)}`; 
+        let i = requestAnimationFrame(updateClock); 
+      }, 
+      handleVisibilityChange = () => { 
+        switch (d.visibilityState) { 
+          case 'visible': i = setInterval(updateClock, 1000); break; 
+          case 'hidden': clearInterval(i); break; 
+          default: break; 
+        } 
+      }; 
+      let i = requestAnimationFrame(updateClock); 
+      d.addEventListener('visibilitychange', handleVisibilityChange); 
+    });
+    ]]>
   </script>
   <defs>
     <style>
