@@ -23,7 +23,7 @@
         solargraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=18`,
         windgraph: `http://${hostname}:3000/d-solo/LIc6Z0VMz/wind-and-temperature?orgId=1&refresh=5s&panelId=4`,
         suntimes: 'sun.html',
-        clock: 'clock.html',
+        clock: 'clock.svg',
       };
 
       const populateWidgets = () => {
@@ -94,7 +94,7 @@
   <body>
     <div id="container">
       <div id="dashboard">
-        <div id="clock">Clock</div>
+        <div id="clock"><img src="clock.svg" /></div>
         <div id="suntimes">Sun</div>
         <div id="temperature">Temperature</div>
         <div id="temperaturegraph">Temperature Graph</div>

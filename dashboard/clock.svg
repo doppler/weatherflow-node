@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <script>
+    // <![CDATA[
+    window.addEventListener('DOMContentLoaded',()=>{const d=document,mh=d.getElementById('m'),sh=d.getElementById('s'),dh=d.getElementById('d'),hh=d.getElementById('h'),z=(n)=>{return n.toString().length===1?`0${n}`:n;},updateClock=()=>{const d=new Date(),[s,m,h]=[d.getSeconds(),d.getMinutes(),d.getHours()];sh.style.transform=`rotate(${6*s}deg)`;mh.style.transform=`rotate(${6*m+0.1*s}deg)`;hh.style.transform=`rotate(${30*(h%12)+0.5*m}deg)`;dh.innerHTML=`${z(h)}:${z(m)}:${z(s)}`;},handleVisibilityChange=()=>{switch(d.visibilityState){case 'visible':i=setInterval(updateClock,1000);break;case 'hidden':clearInterval(i);break;default:break;}};let i=setInterval(updateClock,1000);d.addEventListener('visibilitychange',handleVisibilityChange);});// ]]>
+  </script>
+  <defs>
+    <style>
+      #f {
+        fill: hsl(210, 50%, 10%);
+      }
+
+      .t {
+        fill: hsl(210, 100%, 50%);
+      }
+
+      .h {
+        fill: hsl(210, 100%, 33%);
+        stroke: hsl(210, 100%, 66%);
+        transform-origin: center;
+      }
+
+      #d {
+        fill: hsl(90, 100%, 33%);
+        stroke: hsl(90, 100%, 66%);
+        font-size: 5em;
+        font-family: monospace;
+        font-weight: bold;
+      }
+    </style>
+    <path class="t" id="t15" d="M 248.6 0 L 263.4 0 L 256 23 Z" />
+    <path class="t" id="t5" d="M 251.675 0 L 260.325 0 L 256 14 Z" />
+    <path class="t" id="t1" d="M 253.285 0 L 258.715 0 L 256 8.8 Z" />
+    <g id="q">
+      <use href="#t15" />
+      <use href="#t1" transform="rotate(6, 256, 256)" />
+      <use href="#t1" transform="rotate(12, 256, 256)" />
+      <use href="#t1" transform="rotate(18, 256, 256)" />
+      <use href="#t1" transform="rotate(24, 256, 256)" />
+      <use href="#t5" transform="rotate(30, 256, 256)" />
+      <use href="#t1" transform="rotate(36, 256, 256)" />
+      <use href="#t1" transform="rotate(42, 256, 256)" />
+      <use href="#t1" transform="rotate(48, 256, 256)" />
+      <use href="#t1" transform="rotate(54, 256, 256)" />
+      <use href="#t5" transform="rotate(60, 256, 256)" />
+      <use href="#t1" transform="rotate(66, 256, 256)" />
+      <use href="#t1" transform="rotate(72, 256, 256)" />
+      <use href="#t1" transform="rotate(78, 256, 256)" />
+      <use href="#t1" transform="rotate(84, 256, 256)" />
+    </g>
+  </defs>
+
+  <circle id="f" cx="256" cy="256" r="256" />
+
+  <use href="#q" />
+  <use href="#q" transform="rotate(90, 256, 256)" />
+  <use href="#q" transform="rotate(180, 256, 256)" />
+  <use href="#q" transform="rotate(270, 256, 256)" />
+
+  <text id="d" x="256" y="384" dominant-baseline="middle" text-anchor="middle">
+    00:00:00
+  </text>
+
+  <g class="h" id="h" transform="rotate(120, 256, 256)">
+    <circle cx="256" cy="256" r="11.5" />
+    <path d="M 244.5 256 L 256 97.8 L 267.5 256 Z" />
+  </g>
+
+  <g class="h" id="m" transform="rotate(220, 256, 256)">
+    <circle cx="256" cy="256" r="7.13" />
+    <path d="M 248.87 256 L 256 0 L 263.13 256 Z" />
+  </g>
+
+  <g class="h" id="s">
+    <circle cx="256" cy="256" r="4.4" />
+    <path d="M 251.6 256 L 256 0 L 260.4 256 Z" />
+  </g>
+
+  <circle class="clock-hand" cx="256" cy="256" r="11.5" />
+</svg>
