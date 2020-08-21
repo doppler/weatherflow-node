@@ -40,7 +40,8 @@
       };
 
       const fetchWindsAloft = async () => {
-        const svgTemplate = document.getElementById('arrow-svg');
+        const svgArrow = document.getElementById('arrow-svg');
+        const svgLV = document.getElementById('lv-svg');
 
         const response = await fetch(
           'https://winds-aloft-json.herokuapp.com/forecast/mia/ATL.json'
@@ -62,7 +63,7 @@
             arrowDiv.removeChild(svg);
           }
           if (forecast.direction !== 'L/V') {
-            arrow = svgTemplate.content.cloneNode(true);
+            let arrow = svgArrow.content.cloneNode(true);
             arrow.getElementById(
               'arrow'
             ).style.transform = `rotate(${forecast.direction}deg)`;
@@ -70,6 +71,8 @@
             arrowDiv.appendChild(arrow);
             text += `${forecast.direction}° @ ${forecast.speed.mph} mph`;
           } else {
+            let lv = svgLV.content.cloneNode(true);
+            arrowDiv.appendChild(lv);
             text += 'Light & Variable';
           }
           if (forecast.temperature) {
@@ -145,6 +148,28 @@
           text-anchor="middle"
         >
           10
+        </text>
+      </svg>
+    </template>
+    <template id="lv-svg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <circle
+          cx="50"
+          cy="50"
+          r="50"
+          fill="hsl(240, 50%, 33%)"
+          stroke="hsl(240, 50%, 66%)"
+        />
+        <text
+          x="50"
+          y="55"
+          fill="hsl(240, 50%, 66%)"
+          stroke="white"
+          font-size="4em"
+          dominant-baseline="middle"
+          text-anchor="middle"
+        >
+          L/V
         </text>
       </svg>
     </template>
