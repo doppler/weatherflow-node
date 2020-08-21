@@ -1,10 +1,10 @@
 version: '3'
 services:
   influxdb:
-    restart: unless-stopped
+    restart: always
     # for raspberry pi 64 bit
-    # image: dopplertx/influxdb-2.0-arm64
-    image: quay.io/influxdb/influxdb:2.0.0-beta
+    image: dopplertx/influxdb-2.0-arm64
+    # image: quay.io/influxdb/influxdb:2.0.0-beta
     volumes:
       - influxdb:/root/.influxdbv2
     ports:
@@ -13,7 +13,7 @@ services:
   grafana:
     depends_on:
       - influxdb
-    restart: unless-stopped
+    restart: always
     image: grafana/grafana
     volumes:
       - grafana:/var/lib/grafana
@@ -27,6 +27,7 @@ services:
       context: ./udp-client
       dockerfile: Dockerfile
     image: node-weatherflow-udp-client:latest
+    restart: always
     ports:
       - 50222:50222/udp
     depends_on:
@@ -37,6 +38,7 @@ services:
     build:
       context: ./dashboard
       dockerfile: Dockerfile
+    restart: always
     ports:
       - 5000:5000
     depends_on:
