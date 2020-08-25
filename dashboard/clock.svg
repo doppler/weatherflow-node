@@ -56,7 +56,7 @@
       #d {
         fill: hsla(90, 100%, 33%, 0.5);
         stroke: hsl(90, 100%, 50%);
-        font-size: 7em;
+        font-size: 88px;
         font-family: monospace;
         font-weight: bold;
       }
@@ -107,7 +107,7 @@
 
   <circle class="h" cx="256" cy="256" r="18.6" />
 
-  <text id="d" x="256" y="266" dominant-baseline="middle" text-anchor="middle">
+  <text id="d" x="256" y="344" dominant-baseline="middle" text-anchor="middle">
     00:00:00
   </text>
 
