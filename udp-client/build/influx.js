@@ -36,40 +36,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 require("dotenv").config();
-var dgram = require("dgram");
-var _a = require("./decode"), decodeRapidWind = _a.decodeRapidWind, decodeObsSt = _a.decodeObsSt;
-var _b = require("./influx"), serialize = _b.serialize, write = _b.write;
-var client = dgram.createSocket("udp4");
-client.bind(50222);
-client.on("message", function (message) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, ts, ob, body, response, _a;
-    var _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
+var nodefetch = require("node-fetch");
+exports.write = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, url, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                data = JSON.parse(message.toString());
-                _a = data.type;
-                switch (_a) {
-                    case "rapid_wind": return [3 /*break*/, 1];
-                    case "obs_st": return [3 /*break*/, 3];
-                }
-                return [3 /*break*/, 5];
+                url = process.env["INFLUXDB_HOST"] + "/api/v2/write?org=" + encodeURIComponent(
+                //@ts-ignore
+                process.env["INFLUXDB_ORG"]) + "&bucket=" + process.env["INFLUXDB_BUCKET"] + "&precision=s";
+                _a.label = 1;
             case 1:
-                _b = decodeRapidWind(data.ob), ts = _b[0], ob = _b[1];
-                body = "rapid_wind,station=" + data.serial_number + " " + serialize(ob) + " " + ts;
-                return [4 /*yield*/, write(body)];
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, nodefetch(url, {
+                        method: "POST",
+                        headers: { Authorization: "Token " + process.env["INFLUXDB_TOKEN"] },
+                        body: body,
+                    })];
             case 2:
-                response = _d.sent();
-                return [3 /*break*/, 6];
+                response = _a.sent();
+                return [3 /*break*/, 4];
             case 3:
-                _c = decodeObsSt(data.obs), ts = _c[0], ob = _c[1];
-                body = "obs_st,station=" + data.serial_number + " " + serialize(ob) + " " + ts;
-                return [4 /*yield*/, write(body)];
+                e_1 = _a.sent();
+                response = { status: "error" };
+                console.error(e_1);
+                return [3 /*break*/, 4];
             case 4:
-                response = _d.sent();
-                return [3 /*break*/, 6];
-            case 5: return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                console.log(response.status, url, body);
+                return [2 /*return*/, response.status];
         }
     });
-}); });
+}); };
+exports.serialize = function (obj) {
+    var arr = [];
+    for (var _i = 0, _a = Object.entries(obj); _i < _a.length; _i++) {
+        var _b = _a[_i], key = _b[0], value = _b[1];
+        arr.push(key + "=" + value);
+    }
+    return arr.join(",");
+};
