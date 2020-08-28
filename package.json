@@ -1,0 +1,21 @@
+{
+  "name": "doppler-windchart-panel",
+  "version": "0.0.1",
+  "description": "Grafana panel plugin to display wind speed and direction over time",
+  "repository": "https://github.com/doppler/doppler-windchart-panel",
+  "author": "David Rose <doppler@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@grafana/data": "^7.1.1",
+    "@grafana/toolkit": "^7.1.1",
+    "@grafana/ui": "^7.1.1",
+    "emotion": "^10.0.27"
+  },
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch"
+  }
+}

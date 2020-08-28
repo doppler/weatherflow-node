@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    #face {
+      fill: #ecbb13;
+    }
+
+    #line {
+      stroke: #ecbb13;
+      stroke-width: 8;
+    }
+
+    .text {
+      fill: black;
+      font-weight: bold;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 3rem;
+    }
+  </style>
+  <defs>
+    <path id="hash" d="M 250 3 L 256 29 L 262 3 Z" fill="black" />
+    <line id="line" x1="256" y1="32" x2="256" y2="480" />
+    <mask id="hash-mask">
+      <circle cx="256" cy="256" r="240" stroke="white" stroke-width="32px" />
+
+      <g>
+        <text x="243" y="30" fill="black" class="text">
+          N
+        </text>
+        <text x="483" y="269" fill="black" class="text">
+          E
+        </text>
+        <text x="243" y="509" fill="black" class="text">
+          S
+        </text>
+        <text x="4" y="269" fill="black" class="text">
+          W
+        </text>
+
+        <use href="#hash" transform="rotate(22.5, 256, 256)" />
+        <use href="#hash" transform="rotate(45, 256, 256)" />
+        <use href="#hash" transform="rotate(67.5, 256, 256)" />
+        <use href="#hash" transform="rotate(112.5, 256, 256)" />
+        <use href="#hash" transform="rotate(135, 256, 256)" />
+        <use href="#hash" transform="rotate(157.5, 256, 256)" />
+        <use href="#hash" transform="rotate(202.5, 256, 256)" />
+        <use href="#hash" transform="rotate(225, 256, 256)" />
+        <use href="#hash" transform="rotate(247.5, 256, 256)" />
+        <use href="#hash" transform="rotate(292.5, 256, 256)" />
+        <use href="#hash" transform="rotate(315, 256, 256)" />
+        <use href="#hash" transform="rotate(337.5, 256, 256)" />
+      </g>
+    </mask>
+  </defs>
+
+
+  <use href="#line" transform="rotate(22.5, 256, 256)" />
+  <use href="#line" transform="rotate(67.5, 256, 256)" />
+  <use href="#line" transform="rotate(112.5, 256, 256)" />
+  <use href="#line" transform="rotate(157.5, 256, 256)" />
+
+  <circle id="face" cx="256" cy="256" r="256" mask="url(#hash-mask)" />
+
+</svg>
