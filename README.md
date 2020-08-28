@@ -146,3 +146,13 @@ docker-compose up -d
 ```
 
 Navigate to `http://ip-address-of-your-rasberry-pi:5000` and you should see your dashboard in all it's not-ready-for-primetime glory!
+
+### One more thing:
+
+In order to have the services and dashboard page auto-start at boot time, run the following:
+
+```
+sudo apt install netcat
+
+sh ./autostart/install.sh
+```
