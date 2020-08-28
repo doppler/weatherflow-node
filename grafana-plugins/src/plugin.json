@@ -1,0 +1,34 @@
+{
+  "type": "panel",
+  "name": "Wind Chart",
+  "id": "doppler-windchart-panel",
+  "info": {
+    "description": "Display wind velocity and direction over time",
+    "author": {
+      "name": "David Rose",
+      "url": "https://doppler.github.io"
+    },
+    "keywords": ["compass", "wind", "speed", "direction"],
+    "logos": {
+      "small": "img/compass.svg",
+      "large": "img/compass.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/doppler/doppler-windchart-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/doppler/doppler-windchart-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
