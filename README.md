@@ -44,7 +44,7 @@ sudo apt install -y python3-pip libffi-dev
 sudo pip3 install docker-compose
 ```
 
-### Install weatherflow-node
+### Install weatherflow-node (this project)
 
 ```
 git clone https://github.com/doppler/weatherflow-node.git
