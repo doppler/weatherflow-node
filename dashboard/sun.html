@@ -28,20 +28,24 @@
         font-weight: bold;
       }
     </style>
-    <script>
-      // https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
-      const lat = 33.976903;
-      const lng = -85.17073;
+    <script type="module">
+      import { config } from './config.js';
+
       const fetchSunriseSunset = async () => {
+        const { lat, lng } = config.location;
+        console.log(
+          `https://api.sunrise-sunset.org/json?formatted=0&lat=${lat}&lng=${lng}`
+        );
         const response = await fetch(
           `https://api.sunrise-sunset.org/json?formatted=0&lat=${lat}&lng=${lng}`
         );
         const json = await response.json();
+        console.log(json);
         return json;
       };
 
       document.onreadystatechange = async () => {
-        if (document.readyState === 'interactive') {
+        if (document.readyState === 'complete') {
           const json = await fetchSunriseSunset();
           const options = { timeStyle: 'short' };
           const sunrise = new Date(json.results.sunrise).toLocaleTimeString(

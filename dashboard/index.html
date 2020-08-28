@@ -12,7 +12,9 @@
         height: calc(100vh / 7.5);
       }
     </style>
-    <script>
+    <script type="module">
+      import { config } from './config.js';
+
       const hostname = window.location.hostname;
 
       const widgets = {
@@ -27,7 +29,7 @@
       };
 
       const populateWidgets = () => {
-        Object.entries(widgets).forEach((element) => {
+        Object.entries(widgets).forEach(element => {
           const [domId, url] = element;
           const el = document.getElementById(domId);
           const iframe = document.createElement('iframe');
@@ -44,11 +46,11 @@
         const svgLV = document.getElementById('lv-svg');
 
         const response = await fetch(
-          'https://winds-aloft-json.herokuapp.com/forecast/mia/ATL.json'
+          `https://winds-aloft-json.herokuapp.com/forecast/${config.windsAloft.region}/${config.windsAloft.station}.json`
         );
         const json = await response.json();
 
-        json.dataRows[0].forecast.forEach((forecast) => {
+        json.dataRows[0].forecast.forEach(forecast => {
           const windsAloftDiv = document.querySelector(
             `#winds-${forecast.altitude}`
           );
