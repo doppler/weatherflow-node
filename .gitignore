@@ -1,5 +1,5 @@
 .env
-grafana-plugins/**/*
-!grafana-plugins/.gitignore
+# grafana-plugins/**/*
+# !grafana-plugins/.gitignore
 udp-client/node_modules
 dashboard/config.js
