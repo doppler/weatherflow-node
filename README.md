@@ -66,7 +66,7 @@ ip a
 docker-compose up influxdb
 ```
 
-Navigate to `http://your-raspberry-pi-ip-address:9000`, e.g. http://192.168.1.109:9000
+Navigate to `http://your-raspberry-pi-ip-address:9999`, e.g. http://192.168.1.109:9999
 
 Click "Get Started", then fill out all the required fields.
 
